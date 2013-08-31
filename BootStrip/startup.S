@@ -71,7 +71,6 @@ fiq_vector:
 	b 	fiq_vector
 
 reset_vector:
-
 	/* close watchdog */
 	ldr	r1, =0xFFFFFD44
 	mov	r2, #0x00008000
@@ -81,10 +80,11 @@ reset_vector:
 	/*ldr     sp,=TOP_OF_MEMORY*/
 	/*ldr     sp,=0x308000*/
 	ldr     sp,=0x308000
-
+#if 0
 	ldr     r4, = lowlevel_clock_init
 	mov     lr, pc
 	bx      r4
+#endif
 
 /* Copy the data section in RAM at .data link address */
 _init_data:
