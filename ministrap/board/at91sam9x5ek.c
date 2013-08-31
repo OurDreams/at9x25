@@ -36,9 +36,7 @@
 #include "gpio.h"
 #include "pmc.h"
 #include "dbgu.h"
-#include "debug.h"
 #include "ddramc.h"
-#include "slowclk.h"
 #include "timer.h"
 #include "string.h"
 #include "at91sam9x5ek.h"
@@ -169,13 +167,11 @@ void hw_init(void)
     /* Init timer */
     timer_init();
 
-	slowclk_enable_osc32();
-
 	/* Initialize dbgu */
 	initialize_dbgu();
 
 	/* Initialize DDRAM Controller */
-//	ddramc_init();
+	ddramc_init();
 }
 
 

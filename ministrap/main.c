@@ -25,28 +25,26 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include <stdio.h>
 #include "common.h"
 #include "hardware.h"
 #include "board.h"
 #include "dbgu.h"
-#include "debug.h"
 #include "nandflash.h"
-#include "slowclk.h"
 
 #define JUMP_ADDR   0x21F00000
 #define IMG_ADDRESS 0x00040000
 #define IMG_SIZE    0x00080000
 
+//pio_set_gpio_output(32 + 18, 0); //µãµÆ·¨
 
 static void display_banner (void)
 {
-	char *version = "miniStrap";
-
-	dbgu_print("\n\r");
-	dbgu_print("\n\r");
-	dbgu_print(version);
-	dbgu_print("\n\r");
-	dbgu_print("\n\r");
+    printf("\r\n"
+           " \\|/\n"
+           "--O-- miniStrap start up...\n"
+           " /|\\\n");
+	printf("  Build Time: "__DATE__" "__TIME__"\n\n");
 }
 
 int main(void)
@@ -61,25 +59,21 @@ int main(void)
 	hw_init();
 
 	display_banner();
-    pio_set_gpio_output(32 + 18, 0);
 
-    while(1);
 	ret = load_nandflash(&image);
-	dbgu_print("NAND: ");
+	printf("NAND: ");
 
 	if (ret == 0){
-		dbgu_print("Done to load image\n\r");
+		printf("Done to load image\n");
 	}
 	if (ret == -1) {
-		dbgu_print("Failed to load image\n\r");
+		printf("Failed to load image\n");
 		while(1);
 	}
 	if (ret == -2) {
-		dbgu_print("Success to recovery\n\r");
+		printf("Success to recovery\n");
 		while (1);
 	}
-
-	slowclk_switch_osc32();
 
 	return JUMP_ADDR;
 }

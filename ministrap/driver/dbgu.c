@@ -56,15 +56,10 @@ void dbgu_init(unsigned int baudrate)
 	write_dbgu(DBGU_CR, AT91C_DBGU_RXEN | AT91C_DBGU_TXEN);
 }
 
-void dbgu_print(const char *ptr)
+void dbgu_putc(const char c)
 {
-	int i = 0;
-
-	while (ptr[i] != '\0') {
-		while (!(read_dbgu(DBGU_CSR) & AT91C_DBGU_TXRDY)) ;
-		write_dbgu(DBGU_THR, ptr[i]);
-		i++;
-	}
+    while (!(read_dbgu(DBGU_CSR) & AT91C_DBGU_TXRDY)) ;
+    write_dbgu(DBGU_THR, c);
 }
 
 char dbgu_getc(void)

@@ -26,9 +26,9 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include <stdio.h>
 #include "hardware.h"
 #include "arch/at91_ddrsdrc.h"
-#include "debug.h"
 #include "ddramc.h"
 #include "timer.h"
 
@@ -69,7 +69,7 @@ int ddram_initialize(unsigned int base_address,
 
 	ba_offset += (ddramc_config->mdr & AT91C_DDRC2_DBW) ? 1 : 2;
 
-	dbg_log(3, " ba_offset = %x ...\n\r", ba_offset);
+//	printf(" ba_offset = 0x%x ...\n", ba_offset);
 
 	/*
 	 * Step 1: Program the memory device type into the Memory Device Register

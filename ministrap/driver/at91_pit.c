@@ -27,7 +27,6 @@
  */
 #include "hardware.h"
 #include "board.h"
-#include "debug.h"
 
 #include "arch/at91_pit.h"
 #include "arch/at91_pmc.h"
