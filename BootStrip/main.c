@@ -53,6 +53,7 @@ int main(void)
 	struct image_info image;
 	int ret;
 
+    dbgu_print("\r\ni linke apple!\r\n");
 	image.dest = (unsigned char *)JUMP_ADDR;
 	image.offset = IMG_ADDRESS;
 	image.length = IMG_SIZE;
@@ -60,7 +61,9 @@ int main(void)
 	hw_init();
 
 	display_banner();
+    pio_set_gpio_output(32 + 18, 0);
 
+    while(1);
 	ret = load_nandflash(&image);
 	dbgu_print("NAND: ");
 
@@ -75,6 +78,7 @@ int main(void)
 		dbgu_print("Success to recovery\n\r");
 		while (1);
 	}
+
 
 	return JUMP_ADDR;
 }

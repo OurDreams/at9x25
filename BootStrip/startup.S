@@ -79,6 +79,7 @@ reset_vector:
 
 	/* Init the stack */
 	/*ldr     sp,=TOP_OF_MEMORY*/
+	/*ldr     sp,=0x308000*/
 	ldr     sp,=0x308000
 
 	ldr     r4, = lowlevel_clock_init

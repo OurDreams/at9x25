@@ -28,6 +28,7 @@
 #ifndef __AT91SAM9X5_H__
 #define __AT91SAM9X5_H__
 
+#define AT91SAM9X5
 /*
  * Peripheral identifiers/interrupts.
  */

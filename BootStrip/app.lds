@@ -3,7 +3,8 @@ OUTPUT_ARCH(arm)
 ENTRY(reset)
 SECTIONS
 {
-    . = 0x300000;
+    /* . = ALIGN(4);*/
+    . = ALIGN(4);
 	.text : { 
 		_stext = .;
 		*(.text)

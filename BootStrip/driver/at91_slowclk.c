@@ -1,14 +1,15 @@
 /* ----------------------------------------------------------------------------
  *         ATMEL Microcontroller Software Support
  * ----------------------------------------------------------------------------
- * Copyright (c) 2009, Atmel Corporation
+ * Copyright (c) 2012, Atmel Corporation
+
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
  * - Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the disclaiimer below.
+ * this list of conditions and the disclaimer below.
  *
  * Atmel's name may not be used to endorse or promote products derived from
  * this software without specific prior written permission.
@@ -24,12 +25,57 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef __PSRAM_H__
-#define __PSRAM_H__
+#include "hardware.h"
+#include "arch/at91_slowclk.h"
+#include "timer.h"
 
-#define MICRON_RCR               0x0000
-#define MICRON_BCR               0x0001
-#define MICRON_PAGE_MODE_ENABLE  0x0090
-#define MICRON_8MB_ADDRESS_MAX   0x707FFFFF
+int slowclk_enable_osc32(void)
+{
+	unsigned int reg;
 
-#endif	/* #ifndef __PSRAM_H__ */
+	/*
+	 * Enable the 32768 Hz oscillator by setting the bit OSC32EN to 1
+	 */
+	reg = readl(AT91C_BASE_SCKCR);
+	reg |= AT91C_SLCKSEL_OSC32EN;
+	writel(reg, AT91C_BASE_SCKCR);
+
+	/* start a internal timer */
+	start_interval_timer();
+
+	return 0;
+}
+
+int slowclk_switch_osc32(void)
+{
+	unsigned int reg;
+
+	/*
+	 * Wait 32768 Hz Startup Time for clock stabilization (software loop)
+	 * wait about 1s (1000ms)
+	 */
+	wait_interval_timer(1000);
+
+	/*
+	 * Switching from internal 32kHz RC oscillator to 32768 Hz oscillator
+	 * by setting the bit OSCSEL to 1
+	 */
+	reg = readl(AT91C_BASE_SCKCR);
+	reg |= AT91C_SLCKSEL_OSCSEL;
+	writel(reg, AT91C_BASE_SCKCR);
+
+	/*
+	 * Waiting 5 slow clock cycles for internal resynchronization
+	 * 5 slow clock cycles = ~153 us (5 / 32768)
+	 */
+	udelay(153);
+
+	/*
+	 * Disable the 32kHz RC oscillator by setting the bit RCEN to 0
+	 */
+	reg = readl(AT91C_BASE_SCKCR);
+	reg &= ~AT91C_SLCKSEL_RCEN;
+	writel(reg, AT91C_BASE_SCKCR);
+
+	return 0;
+}
