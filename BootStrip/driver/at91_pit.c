@@ -32,7 +32,6 @@
 #include "arch/at91_pit.h"
 #include "arch/at91_pmc.h"
 
-
 #define MAX_PIV		0xfffff
 
 static inline int pit_readl(unsigned int reg)

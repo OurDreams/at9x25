@@ -42,7 +42,7 @@
 #include "timer.h"
 #include "string.h"
 #include "at91sam9x5ek.h"
-#include "arch/at91_wdt.h"
+
 
 
 static void at91_dbgu_hw_init(void)
@@ -149,11 +149,10 @@ static void ddramc_init(void)
 
 void hw_init(void)
 {
-    writel(AT91C_WDTC_WDDIS, AT91C_BASE_WDT + WDTC_MR);
     /* At this stage the main oscillator is
      *supposed to be enabled PCK = MCK = MOSC
      */
-    pmc_init_pll(0);
+	pmc_init_pll(0);
 
     /* Configure PLLA = MOSC * (PLL_MULA + 1) / PLL_DIVA */
     pmc_cfg_plla(PLLA_SETTINGS, PLL_LOCK_TIMEOUT);

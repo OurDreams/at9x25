@@ -39,11 +39,27 @@
 #include "timer.h"
 #include "div.h"
 
-#include "board.h"
-
 static struct nand_chip nand_ids[] = {
-    /* Micron MT29F2G08AAC 128MB  */
-    {0x2cf1, 0x400, 0x20000, 0x800, 0x40, 0x0},
+	/* Samsung K9F2G08U0M 256MB */
+	{0xecda, 0x800, 0x20000, 0x800, 0x40, 0x0},
+	/* Samsung K9F2G08U0A 256MB */
+	{0xecaa, 0x800, 0x20000, 0x800, 0x40, 0x0},
+	/* Micron MT29F2G16AAB 256MB */
+	{0x2cca, 0x800, 0x20000, 0x800, 0x40, 0x1},
+	/* Micron MT29F2G08AAC 256MB  */
+	{0x2cda, 0x800, 0x20000, 0x800, 0x40, 0x0},
+	/* Micron MT29F2G08AAC 128MB  */
+	{0x2cf1, 0x400, 0x20000, 0x800, 0x40, 0x0},
+	/* Micron MT29F2G08ABD 256MB */
+	{0x2caa, 0x800, 0x20000, 0x800, 0x40, 0x0},
+	/* Hynix HY27UF082G2A 256MB */
+	{0xadda, 0x800, 0x20000, 0x800, 0x40, 0x0},
+	/* Hynix HY27UF162G2A 256MB */
+	{0xadca, 0x800, 0x20000, 0x800, 0x40, 0x1},
+	/* Mircon MT29H8G08ACAH1 1GB */
+	{0x2c38, 0x800, 0x80000, 0x1000, 0xe0, 0x0},
+	/* EON EN27LN1G08 128MB */
+	{0x92f1, 0x400, 0x20000, 0x800, 0x40, 0x0},
 	{0,}
 };
 
@@ -564,7 +580,7 @@ static int nandflash_get_type(struct nand_info *nand)
 	int ret;
 
 	nandflash_reset();
-
+#if 0
 	/* Check if the Nandflash is ONFI compliant */
 	ret = nandflash_detect_onfi(chip);
 	if (ret == -1) {
@@ -576,7 +592,11 @@ static int nandflash_get_type(struct nand_info *nand)
 
 	if (nand_init_on_die_ecc())
 		return -1;
-
+#endif
+	if (nandflash_detect_non_onfi(chip)) {
+		dbg_log(1, "NAND: Not find support device!\n\r");
+		return -1;
+	}
 	nand_info_init(nand, chip);
 	
 	if (nand->buswidth == 0)

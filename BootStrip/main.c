@@ -31,6 +31,7 @@
 #include "dbgu.h"
 #include "debug.h"
 #include "nandflash.h"
+#include "slowclk.h"
 
 #define JUMP_ADDR   0x21F00000
 #define IMG_ADDRESS 0x00040000
@@ -79,6 +80,7 @@ int main(void)
 		while (1);
 	}
 
+	slowclk_switch_osc32();
 
 	return JUMP_ADDR;
 }
