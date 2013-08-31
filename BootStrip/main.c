@@ -54,7 +54,6 @@ int main(void)
 	struct image_info image;
 	int ret;
 
-	dbgu_print("\r\ni linke apple!\r\n");
 	image.dest = (unsigned char *)JUMP_ADDR;
 	image.offset = IMG_ADDRESS;
 	image.length = IMG_SIZE;

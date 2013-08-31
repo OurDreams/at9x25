@@ -28,6 +28,8 @@
 #ifndef __AT91_PIO_H__
 #define __AT91_PIO_H__
 
+#define CONFIG_HAS_PIO3
+
 /* Register offset in AT91S_PIO structure */
 #define PIO_PER(p)		(0x0000 + (p) * 0x200)	/* PIO Enable Register */
 #define PIO_PDR(p)		(0x0004 + (p) * 0x200)	/* PIO Disable Register */
