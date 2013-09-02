@@ -48,7 +48,6 @@ int main(void)
 {
 	struct image_info image;
 	int ret;
-	unsigned char *paddr = (unsigned char *)0x21f00000;
 
 	image.dest = (unsigned char *)JUMP_ADDR;
 	image.offset = IMG_ADDRESS;
