@@ -44,17 +44,8 @@ struct image_info
 {
 	unsigned int offset;
 	unsigned int length;
-	char *filename;
 	unsigned char *dest;
-
-	unsigned char of;
-	unsigned int of_offset;
-	unsigned int of_length;
-	char *of_filename;
-	unsigned char *of_dest;
 };
-
-extern void (*sdcard_set_of_name)(char *);
 
 static inline unsigned int swap_uint32(unsigned int data)
 {

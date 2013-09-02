@@ -1713,15 +1713,5 @@ int load_nandflash(struct image_info *image)
 	if (ret)
 		return ret;
 
-	if (image->of) {
-		printf("NAND: dt blob: Copy 0x%08x bytes from 0x%08x to 0x%08x\n",
-			image->of_length, image->of_offset, (int)image->of_dest);
-
-		ret = nand_loadimage(&nand, image->of_offset,
-					image->of_length, image->of_dest);
-		if (ret)
-			return ret;
-	}
-
 	return 0;
  }
