@@ -76,9 +76,7 @@ reset_vector:
 	mov	r2, #0x00008000
 	str	r2, [r1]
 
-	/* Init the stack */
-	/*ldr     sp,=TOP_OF_MEMORY*/
-	/*ldr     sp,=0x308000*/
+	/* Init the stack TOP_OF_MEMORY=0x308000*/
 	ldr     sp,=0x308000
 
 	ldr     r4, = lowlevel_clock_init

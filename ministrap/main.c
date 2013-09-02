@@ -31,10 +31,7 @@
 #include "board.h"
 #include "dbgu.h"
 #include "nandflash.h"
-
-#define JUMP_ADDR   0x21F00000
-#define IMG_ADDRESS 0x00040000
-#define IMG_SIZE    0x00080000
+#include <cfg.h>
 
 //pio_set_gpio_output(32 + 18, 0); //µãµÆ·¨
 

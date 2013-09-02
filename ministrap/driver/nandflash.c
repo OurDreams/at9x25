@@ -37,13 +37,7 @@
 #include "hamming.h"
 #include "timer.h"
 #include "div.h"
-
-#define CONFIG_USE_PMECC
-#define PMECC_ERROR_CORR_BITS           2
-#define PMECC_SECTOR_SIZE               512
-#define CONFIG_NANDFLASH_RECOVERY
-#define RECOVERY_BUTTON_NAME            "PB11"
-#define CONFIG_SYS_RECOVERY_BUTTON_PIN  AT91C_PIN_PB(11)
+#include <cfg.h>
 
 static struct nand_chip nand_ids[] = {
 	/* Samsung K9F2G08U0M 256MB */
