@@ -39,8 +39,11 @@
 #include "div.h"
 
 #define CONFIG_USE_PMECC
-#define PMECC_ERROR_CORR_BITS 2
-#define PMECC_SECTOR_SIZE   512
+#define PMECC_ERROR_CORR_BITS           2
+#define PMECC_SECTOR_SIZE               512
+#define CONFIG_NANDFLASH_RECOVERY
+#define RECOVERY_BUTTON_NAME            "PB11"
+#define CONFIG_SYS_RECOVERY_BUTTON_PIN  AT91C_PIN_PB(11)
 
 static struct nand_chip nand_ids[] = {
 	/* Samsung K9F2G08U0M 256MB */
@@ -140,6 +143,7 @@ static int is_valid_pmecc_params()
 		printf("Invalid Pmecc error bits: %d. Should " \
 			"be 2, 4, 8, 12 or 24.\n", PMECC_ERROR_CORR_BITS);
 		ret = 0;
+		break;
 	}
 
 	if (PMECC_SECTOR_SIZE != 512 && PMECC_SECTOR_SIZE != 1024) {
