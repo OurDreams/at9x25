@@ -52,6 +52,7 @@ int main(void)
 	struct image_info image;
 	int ret;
 
+    memset(&image, 0, sizeof(image));
 	image.dest = (unsigned char *)JUMP_ADDR;
 	image.offset = IMG_ADDRESS;
 	image.length = IMG_SIZE;
