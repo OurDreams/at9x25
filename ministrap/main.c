@@ -46,11 +46,26 @@ static void display_banner (void)
            " /|\\\n");
 	printf("  Build Time: "__DATE__" "__TIME__"\n\n");
 }
-
+static void display_mem(unsigned char *paddr)
+{
+    unsigned char mem;
+    unsigned int i;
+    for(i = 0; i < 0x400; i++)
+    {
+    	mem = paddr[i];
+    	printf("0x%2x ", mem);
+    	if((i % 8 == 0)&(i != 0))
+    	{
+    		printf("\n\r");
+    	}
+    }
+    printf("\n\r");
+}
 int main(void)
 {
 	struct image_info image;
 	int ret;
+	unsigned char *paddr = (unsigned char *)0x21f00000;
 
 	image.dest = (unsigned char *)JUMP_ADDR;
 	image.offset = IMG_ADDRESS;
@@ -74,6 +89,8 @@ int main(void)
 		printf("Success to recovery\n");
 		while (1);
 	}
+
+//	display_mem(paddr);
 
 	return JUMP_ADDR;
 }
