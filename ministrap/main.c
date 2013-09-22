@@ -53,6 +53,9 @@ int main(void)
 	image.offset = IMG_ADDRESS;
 	image.length = IMG_SIZE;
 
+	/* close watchdog */
+    writel((0x1UL << 15), AT91C_BASE_WDT + 0x04);
+
 	hw_init();
 
 	display_banner();

@@ -71,10 +71,11 @@ fiq_vector:
 	b 	fiq_vector
 
 reset_vector:
+
 	/* close watchdog */
-	ldr	r1, =0xFFFFFD44
-	mov	r2, #0x00000080
-	str	r2, [r1]
+;	ldr	r1, =0xFFFFFD44
+;	mov	r2, #0x00000080
+;	str	r2, [r1]
 
 	/* Init the stack TOP_OF_MEMORY=0x308000*/
 	ldr     sp,=0x308000
