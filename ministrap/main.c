@@ -53,8 +53,10 @@ int main(void)
 	image.offset = IMG_ADDRESS;
 	image.length = IMG_SIZE;
 
+#if CONFIG_ENABLE_WATCHDOG
 	/* close watchdog */
     writel((0x1UL << 15), AT91C_BASE_WDT + 0x04);
+#endif
 
 	hw_init();
 

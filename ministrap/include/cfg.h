@@ -17,6 +17,7 @@
 #define IMG_ADDRESS     0x00040000
 #define IMG_SIZE        0x00080000
 
+#define CONFIG_DISABLE_WATCHDOG         1
 #define CONFIG_USE_PMECC
 #define PMECC_ERROR_CORR_BITS           2
 #define PMECC_SECTOR_SIZE               512
